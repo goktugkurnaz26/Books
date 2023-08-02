@@ -1,17 +1,22 @@
-import { useState } from "react"
-import BookCreate from "./components/BookCreate"
+import { useEffect, useContext } from 'react'
+import BookCreate from './components/BookCreate'
+import BookList from './components/BookList'
+import BooksContext from './context/books'
 
 const App = () => {
-    const [books, setBooks] = useState([]) 
-    const createBook = (title) => {
-      books.push({id:123,title:title})
-      setBooks(books)
-    }
+  const { fetchBooks } = useContext(BooksContext)
+
+  useEffect(() => {
+    fetchBooks()
+  }, [])
+
   return (
-  <div>
-    {books.length}
-    <BookCreate onCreate={createBook} />
+    <div className='app'>
+      <h1>Okuma Listesi</h1>
+      <BookList />
+      <BookCreate />
     </div>
   )
 }
+
 export default App
